@@ -1,0 +1,275 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000000">
+  <meta name="description" content="Gooey is live. A personal environment.">
+  <title>Gooey ☆</title>
+  <style>
+    :root { color-scheme: dark; --ink: #e8e5e8; --pink: #ff66c4; }
+    * { box-sizing: border-box; }
+    html { background: #000; }
+    body { margin: 0; background: #000; color: var(--ink); font: 10pt/1.4 Consolas, 'Courier New', monospace; }
+    button, a { font: inherit; }
+
+
+.marquee {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 36px;
+  height: 26px;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
+.marquee-track {
+  display: flex;
+  width: max-content;
+  padding-top: 4px;
+  animation: marquee-scroll 20s linear infinite;
+  will-change: transform;
+}
+
+.marquee-group {
+  display: flex;
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to { transform: translateX(-50%); }
+}
+
+
+body {
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+}
+
+main {
+  flex: 1;
+}
+
+.audio-footer {
+  width: min(100% - 32px, 380px);
+  margin: 0 auto;
+  padding-bottom: 24px;
+}
+
+.audio-toggle {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 0;
+  background: none;
+  border: 0;
+  color: var(--pink);
+  text-align: left;
+  cursor: pointer;
+}
+
+#audioPlayer {
+  margin-top: 12px;
+}
+
+#audioPlayer[hidden] {
+  display: none;
+}
+
+#audioPlayer iframe {
+  display: block;
+  width: 100%;
+  height: 152px;
+  border: 0;
+  border-radius: 8px;
+}
+
+@media (max-width: 430px) {
+  .audio-footer {
+    width: calc(100% - 80px);
+  }
+}
+
+    .menu { position: absolute; right: 12px; top: 3px; background: none; border: 0; color: var(--ink); cursor: pointer; padding: 2px 4px; }
+    .menu-panel { position: absolute; top: 30px; right: 12px; background: #090609; border: 1px solid #493044; padding: 10px; z-index: 3; }
+    .menu-panel[hidden] {display: none;}
+    .menu-panel a { color: var(--ink); display: block; padding: 3px 0; text-decoration: none; }
+    .menu-panel a:hover { color: var(--pink); }
+    main { width: min(100% - 32px, 380px); margin: 0 auto; padding-top: clamp(140px, 26vh, 260px); padding-bottom: 80px; }
+    .intro { margin: 0 0 22px; }
+    .logo-wrap { width: 100%; overflow-x: auto; scrollbar-width: thin; margin-bottom: 24px; }
+    .logo { display: block; width: max-content; margin: 0; font: 10pt/1.12 Consolas, 'Courier New', monospace; white-space: pre; color: var(--pink); }
+    .status { display: flex; justify-content: space-between; gap: 12px; margin-bottom: 20px; }
+    .nav { display: flex; flex-wrap: wrap; gap: 0 9px; margin-bottom: 22px; }
+    .nav button { background: transparent; border: 0; padding: 0; color: var(--ink); cursor: pointer; }
+    .nav button:hover, .nav button[aria-expanded="true"] { color: var(--pink); }
+    .content { margin: -6px 0 20px; max-width: 100%; overflow-wrap: anywhere; }
+    .content[hidden] { display: none; }
+    .content p { margin: 0 0 12px; }
+    .content a { color: #ff66c4; text-decoration: underline; text-underline-offset: 2px; }
+    .prompt { margin: 0; }
+    .cursor { color: var(--pink); animation: blink 1s steps(1) infinite; }
+    @keyframes blink { 50% { opacity: 0; } }
+    @media (max-width: 430px) {main {margin-left: 40px; margin-right: 40px; width: calc(100% - 80px);} }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="marquee" aria-label="Gooey is live">
+      <div class="marquee-track" id="marqueeTrack">
+        <span class="marquee-group">GOOEY IS LIVE　</span>
+      </div>
+    </div>
+    <button class="menu" id="menuButton" aria-label="Open menu" aria-expanded="false" aria-controls="menuPanel">☰</button>
+    <div class="menu-panel" id="menuPanel" hidden>
+      <a href="#about" data-section="about">ABOUT</a>
+      <a href="#links" data-section="links">LINKS</a>
+      <a href="#contact" data-section="contact">CONTACT</a>
+    </div>
+  </header>
+  <main>
+    <p class="intro">INITIALIZING PERSONAL ENVIRONMENT...</p>
+    <div class="logo-wrap" aria-label="Gooey is live">
+<pre class="logo" aria-hidden="true">   ______                            
+  / ____/___  ____  ___  __  __      
+ / / __/ __ \/ __ \/ _ \/ / / /      
+/ /_/ / /_/ / /_/ /  __/ /_/ /       
+\____/\____/\____/\___/\__, /        
+    _         __    __/____/ ________
+   (_)____   / /   /  _/ |  / / ____/
+  / / ___/  / /    / / | | / / __/   
+ / (__  )  / /____/ /  | |/ / /___   
+/_/____/  /_____/___/  |___/_____/</pre>
+    </div>
+    <div class="status"><span>CONNECTION STABLE</span><span>EST. 2018</span></div>
+    <nav class="nav" aria-label="Main navigation">
+      <button type="button" data-section="about" aria-controls="about" aria-expanded="false">[01] ABOUT</button>
+      <button type="button" data-section="links" aria-controls="links" aria-expanded="false">[02] LINKS</button>
+      <button type="button" data-section="contact" aria-controls="contact" aria-expanded="false">[03] CONTACT</button>
+    </nav>
+    <section id="about" class="content" hidden><p>Gooey is a digital persona with an eye for curation and a 
+      taste for contrast. Nothing is accidental, though not everything comes with an explanation.</p></section>
+    <section id="links" class="content" hidden><p><a href="https://www.instagram.com/gooey.live/" target="_blank" rel="noopener noreferrer">instagram / gooey.live</a></p><p><a href="https://www.amazon.com/hz/wishlist/ls/3RW98JHDXRXL1?ref_=wl_share" target="_blank" rel="noopener noreferrer">amazon wishlist</a></p></section>
+    <section id="contact" class="content" hidden><p>contact@gooey.live</p></section>
+    <p class="prompt">guest@gooey.live:&gt;<span class="cursor" aria-hidden="true">_</span></p>
+  </main>
+
+<footer class="audio-footer">
+  <button
+    type="button"
+    class="audio-toggle"
+    id="audioToggle"
+    aria-expanded="false"
+    aria-controls="audioPlayer">
+    <span>[♫] AUDIO / GOOEY'S FREQUENCY</span>
+    <span id="audioIndicator">[+]</span>
+  </button>
+
+  <div id="audioPlayer" hidden></div>
+</footer>
+
+<script>
+  const sections = ['about', 'links', 'contact'];
+  const navButtons = document.querySelectorAll('.nav button');
+  const menuButton = document.getElementById('menuButton');
+  const menuPanel = document.getElementById('menuPanel');
+  const marquee = document.querySelector('.marquee');
+  const track = document.getElementById('marqueeTrack');
+  const group = track.querySelector('.marquee-group');
+
+  function toggleSection(name) {
+    const section = document.getElementById(name);
+    const opening = section.hidden;
+
+    sections.forEach(id => {
+      document.getElementById(id).hidden = true;
+    });
+
+    if (opening) section.hidden = false;
+
+    navButtons.forEach(button => {
+      button.setAttribute(
+        'aria-expanded',
+        String(button.dataset.section === name && opening)
+      );
+    });
+
+    menuPanel.hidden = true;
+    menuButton.setAttribute('aria-expanded', 'false');
+  }
+
+  document.querySelectorAll('[data-section]').forEach(el => {
+    el.addEventListener('click', event => {
+      event.preventDefault();
+      toggleSection(el.dataset.section);
+    });
+  });
+
+  menuButton.addEventListener('click', () => {
+    menuPanel.hidden = !menuPanel.hidden;
+    menuButton.setAttribute('aria-expanded', String(!menuPanel.hidden));
+  });
+
+  function buildMarquee() {
+    track.style.animation = 'none';
+    group.textContent = '';
+    track.replaceChildren(group);
+
+    const phrase = 'GOOEY IS LIVE\u3000';
+    const test = document.createElement('span');
+
+    test.textContent = phrase;
+    group.appendChild(test);
+
+    const phraseWidth = test.getBoundingClientRect().width;
+    const count = Math.ceil(marquee.clientWidth / phraseWidth) + 1;
+
+    group.textContent = phrase.repeat(count);
+
+    const clone = group.cloneNode(true);
+    clone.setAttribute('aria-hidden', 'true');
+    track.appendChild(clone);
+
+    const distance = group.getBoundingClientRect().width;
+    const pixelsPerSecond = 45;
+
+    track.style.animationDuration = `${distance / pixelsPerSecond}s`;
+    track.style.animation = '';
+  }
+
+  buildMarquee();
+  window.addEventListener('resize', buildMarquee);
+
+const audioToggle = document.getElementById('audioToggle');
+const audioPlayer = document.getElementById('audioPlayer');
+const audioIndicator = document.getElementById('audioIndicator');
+
+const playlistId = '4F0CDMGUqpHyJ7nujjeTP7?si=4e2bbf8351af4c76';
+
+audioToggle.addEventListener('click', () => {
+  const opening = audioPlayer.hidden;
+
+  if (opening && !audioPlayer.querySelector('iframe')) {
+    const iframe = document.createElement('iframe');
+    iframe.src = `https://open.spotify.com/embed/playlist/${playlistId}`;
+    iframe.title = "Gooey's Spotify playlist";
+    iframe.allow = 'autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture';
+    iframe.loading = 'lazy';
+    audioPlayer.appendChild(iframe);
+  }
+
+  audioPlayer.hidden = !opening;
+  audioToggle.setAttribute('aria-expanded', String(opening));
+  audioIndicator.textContent = opening ? '[-]' : '[+]';
+});
+
+</script>
+
+</body>
+</html>
